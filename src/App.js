@@ -1,23 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+
+class Button extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+        counter:0,
+        counter2:2
+    } 
+ }
+
+ render() {
+   return <h1 onClick={()=>{
+     this.setState({
+       counter:this.state.counter + 1
+     })
+   }}>{this.state.counter} { this.state.counter2} </h1>
+ }
+}
 
 function App() {
+  
+  const [state, ssetState] = useState({
+    counter:0,
+    counter2:10
+  })
+
+  function setState(newState) {
+      ssetState(oldState => {
+        return {
+          ...oldState,
+          ...newState
+        }
+      })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 onClick={()=>{
+        setState({
+          counter: state.counter + 1 
+          })
+      }}> {state.counter} {state.counter2} </h1>     
     </div>
   );
 }
